@@ -17,6 +17,12 @@ define :git_clone, {
     git_clone_params[:repository] = "http://#{$1}"
   end
 
+  bash "New origin set, deleting old repository #{git_clone_params[:name]}" do
+    user git_clone_params[:user]
+    code "rm -rf #{git_clone_params[:name]}"
+    not_if "[ -d #{git_clone_params[:name]} ] && [ \"$(cd #{git_clone_params[:name]} && git remote show origin -n | grep 'Fetch URL' | awk '{ print $3 }')\" = \"#{git_clone_params[:repository]}\" ]"
+  end
+
   bash "git clone #{git_clone_params[:repository]} to #{git_clone_params[:name]}" do
     user git_clone_params[:user]
     code "git clone #{git_clone_params[:repository]} #{git_clone_params[:name]}"
