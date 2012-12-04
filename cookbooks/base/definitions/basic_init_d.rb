@@ -56,13 +56,9 @@ define :basic_init_d, {
       })
   end
 
-  if basic_init_d_params[:auto_start]
 
-    service basic_init_d_params[:name] do
-      supports :status => true, :restart => true
-      action [ :enable, :start ]
-    end
-
+  service basic_init_d_params[:name] do
+    supports :status => true, :restart => true
+    action [ :enable, basic_init_d_params[:auto_start] ? :start : :nothing ]
   end
-
 end

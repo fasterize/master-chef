@@ -24,6 +24,7 @@ basic_init_d "elasticsearch" do
   directory_check node.elasticsearch.directory
   options "-f " + node.elasticsearch.options
   code init_d_code
+  auto_start false
 end
 
 Chef::Config.exception_handlers << ServiceErrorHandler.new("elasticsearch", ".*elasticsearch.*")

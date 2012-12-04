@@ -57,6 +57,7 @@ define :nodejs_app, {
     user nodejs_app_params[:user]
     working_directory "#{directory}/current"
     vars_to_unset ["NVM_DIR"]
+    auto_start false
   end
 
   file "/etc/default/#{nodejs_app_params[:name]}" do
