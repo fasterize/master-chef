@@ -45,13 +45,10 @@ status_<%= @name %>() {
 }
 
 kill_<%= @name %>() {
-  SIGNAL=$1
-
-  if [ ! "$PID_FILE" = "" ]; then
-    if [ -f $PID_FILE ]; then
-      kill $SIGNAL `cat $PID_FILE` || true
-    fi
-  fi
+  start-stop-daemon --stop --quiet --retry=TERM/30/KILL/5 --pidfile $PID_FILE
+  RETVAL="$?"
+  [ "$RETVAL" = 2 ] && return 2
+  rm -f $PID_FILE
 }
 
 run_<%= @name %>() {
