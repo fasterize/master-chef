@@ -15,8 +15,8 @@ zeromq.bind: #{node.elasticsearch.transport_zmq.listen}
 EOF
 
   init_d_code += "export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:#{node.libzmq.jzmq.directory}/lib\n" +
-    "export ES_MIN_MEM=128m"
-
+    "export ES_MIN_MEM=#{node.elasticsearch.min_memory}m\n" +
+    "export ES_MAX_MEM=#{node.elasticsearch.max_memory}m\n"
 end
 
 basic_init_d "elasticsearch" do
