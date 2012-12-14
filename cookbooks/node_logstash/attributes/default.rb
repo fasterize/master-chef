@@ -23,5 +23,6 @@ default[:kibana] = {
     :analyze_limit => 10000,
     :default_operator => 'OR',
     :elasticsearch => 'localhost:9200',
+    :default_fields => ['@message']
   }
 }

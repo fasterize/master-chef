@@ -31,12 +31,12 @@ module KibanaConfig
 
   # Format for timestamps. Defaults to mm/dd HH:MM:ss.
   # For syntax see: http://blog.stevenlevithan.com/archives/date-time-format
-  # Time_format = 'isoDateTime' 
+  # Time_format = 'isoDateTime'
   Time_format = '<%= @time_format %>'
 
   # Change which fields are shown by default. Must be set as an array
   # Default_fields = ['vhost','response','request']
-  Default_fields = ['@message']
+  Default_fields = [<%= @default_fields.map{|x| "'#{x}'"}.join(',') %>]
 
   # The default operator used if no explicit operator is specified.
   # For example, with a default operator of OR, the query capital of
@@ -73,9 +73,9 @@ module KibanaConfig
   # turn this behavior off if you use something other than daily
   # indexing
   Smart_index = true
-  
-  # You can define your custom pattern here for index names if you 
-  # use something other than daily indexing. Pattern needs to have 
+
+  # You can define your custom pattern here for index names if you
+  # use something other than daily indexing. Pattern needs to have
   # date formatting like '%Y.%m.%d'
   Smart_index_pattern = 'logstash-%Y.%m.%d'
 
@@ -87,7 +87,7 @@ module KibanaConfig
 
   # Elasticsearch has an internal mechanism called "faceting" for performing
   # analysis that we use for the "Stats" and "Terms" modes. However, on large
-  # data sets/queries facetting can cause ES to crash if there isn't enough 
+  # data sets/queries facetting can cause ES to crash if there isn't enough
   # memory available. It is suggested that you limit the number of indices that
   # Kibana will use for the "Stats" and "Terms" to prevent ES crashes. For very
   # large data sets and undersized ES clusers, a limit of 1 is not unreasonable.
