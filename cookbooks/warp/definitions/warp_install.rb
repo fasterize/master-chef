@@ -9,7 +9,7 @@ define :warp_install, {
   git_clone "#{get_home warp_install_params[:name]}/.warp" do
     user warp_install_params[:name]
     reference node.warp[:reference]
-    repository "git://github.com/fasterize/warp.git"
+    repository node.warp[:repository]
   end
 
   if node.warp[:warp_src]
