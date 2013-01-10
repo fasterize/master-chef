@@ -85,6 +85,13 @@ service "carbon" do
   action auto_compute_action
 end
 
+template "#{node.graphite.directory}/conf/blacklist.conf" do
+  source "blacklist.conf.erb"
+  mode 0644
+  variables :blacklist => node.graphite.blacklist
+  notifies :restart, resources(:service => "carbon")
+end
+
 template "#{node.graphite.directory}/conf/carbon.conf" do
   source "carbon.conf.erb"
   mode 0644

@@ -20,6 +20,11 @@ default[:graphite][:storages] = {
   }
 }
 
+default[:graphite][:blacklist] = [
+  ".*ti_[0-9a-f]{4}.*",
+  ".*test_integ.*"
+]
+
 default[:graphite][:xFilesFactor] = 0.5
 
 default[:graphite][:timezone] = "Europe/Paris"
