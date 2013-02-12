@@ -9,10 +9,14 @@ module KibanaConfig
   # Elasticsearch = ["elasticsearch1:9200","elasticsearch2:9200"]
   Elasticsearch = [<%= @elasticsearch_servers.map{|x| "\"#{x}\""}.join(',') %>]
 
+  #Set the Net::HTTP read/open timeouts for the connection to the ES backend
+  ElasticsearchTimeout = 500
+
   # The port Kibana should listen on
   KibanaPort = 5601
 
-  # The adress ip Kibana should listen on
+  # The adress ip Kibana should listen on. Comment out or set to
+  # 0.0.0.0 to listen on all interfaces.
   KibanaHost = '127.0.0.1'
 
   # The record type as defined in your logstash configuration.
@@ -37,6 +41,18 @@ module KibanaConfig
   # Change which fields are shown by default. Must be set as an array
   # Default_fields = ['vhost','response','request']
   Default_fields = [<%= @default_fields.map{|x| "'#{x}'"}.join(',') %>]
+
+  # If set to true, Kibana will use the Highlight feature of Elasticsearch to 
+  # display highlighted search results
+  Highlight_results = true
+
+  # A field needs to be specified for the highlight feature. By default, 
+  # Elasticsearch doesn't allow highlighting on _all because the field has to 
+  # be either stored or part of the _source field.
+  Highlighted_field = "@message"
+
+  # Make URLs clickable in detailed view
+  Clickable_URLs = true
 
   # The default operator used if no explicit operator is specified.
   # For example, with a default operator of OR, the query capital of
